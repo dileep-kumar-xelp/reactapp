@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/xecute-api
+    docker:
+      - image: circleci/node:9.11.2
+
+    steps:
+      - checkout
+      - run:
+          name: update-npm
+          command: "sudo npm install -g npm@5"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Installing Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Testing
+          command: npm test
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
