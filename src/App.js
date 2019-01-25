@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+const commitRef = process.env.APP_COMMIT_REF || "N/A";
+const buildDate = process.env.APP_BUILD_DATE || new Date().toISOString();
 class App extends Component {
   render() {
     return (
@@ -17,7 +18,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            `We're at commit ${commitRef} which was built at ${buildDate}`
           </a>
         </header>
       </div>
